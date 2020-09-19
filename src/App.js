@@ -43,9 +43,7 @@ function App() {
 		}, 250);
 		return () => clearTimeout(timeout);
 	}, [html, css, js]);
-	useEffect(() => {
-		console.log(srcDoc);
-	}, [srcDoc]);
+
 	return (
 		<Container>
 			<Editors>
