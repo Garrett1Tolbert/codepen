@@ -52,10 +52,10 @@ function Editor({ code, mode, title, hidden, handleChange, handleClose }) {
 					theme: 'material',
 					mode,
 				}}
-				onBeforeChange={(value) => {
+				onBeforeChange={(editor, data, value) => {
 					handleChange(value);
 				}}
-				onChange={(value) => handleChange(value)}
+				onChange={(editor, data, value) => handleChange(value)}
 			/>
 		</Container>
 	);
