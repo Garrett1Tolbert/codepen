@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import '../constants';
 
 const Container = styled.div`
-	// height: 100%;
+	height: 100%;
 	width: 100%;
 	border-radius: 10px;
 	overflow: hidden;
 	box-shadow: 0 5px 15px #212121;
+	display: ${({ open }) => (open ? 'block' : 'none')};
 `;
 const Header = styled.div`
 	padding: 8px 16px;
@@ -27,14 +28,20 @@ const Icon = styled.i`
 	color: #212121;
 `;
 
-function Editor({ code, mode, title, handleChange }) {
-	const [open, setOpen] = useState(true);
+function Editor({ code, mode, title, hidden, handleChange, handleClose }) {
+	const open = !hidden.includes(title);
 	return (
-		<Container>
+		<Container open={open}>
 			<Header>
 				<Title>{title}</Title>
-				<Icon className="material-icons" onClick={() => setOpen(!open)}>
-					{open ? 'close_fullscreen' : 'open_in_full'}
+				<Icon
+					className="material-icons"
+					onClick={() => {
+						if (open) handleClose([...hidden, title]);
+						else handleClose(hidden.filter((item) => item !== title));
+					}}
+				>
+					close_fullscreen
 				</Icon>
 			</Header>
 			<CodeMirror
@@ -45,10 +52,10 @@ function Editor({ code, mode, title, handleChange }) {
 					theme: 'material',
 					mode,
 				}}
-				onBeforeChange={(editor, data, value) => {
+				onBeforeChange={(value) => {
 					handleChange(value);
 				}}
-				onChange={(editor, data, value) => handleChange(value)}
+				onChange={(value) => handleChange(value)}
 			/>
 		</Container>
 	);

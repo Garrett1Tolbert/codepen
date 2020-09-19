@@ -5,3 +5,8 @@
 	box-sizing: border-box;
 	font-family: 'Roboto', sans-serif;
 }
+
+.react-codemirror2,
+.CodeMirror {
+	height: 100% !important;
+}
