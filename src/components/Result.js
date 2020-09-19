@@ -13,7 +13,7 @@ const Iframe = styled.iframe`
 function Result({ srcDoc }) {
 	return (
 		<Container>
-			<Iframe frameBorder="0" srcDoc={srcDoc} />
+			<Iframe frameBorder="0" srcDoc={srcDoc} sandbox="allow-scripts" />
 		</Container>
 	);
 }
