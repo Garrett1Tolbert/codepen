@@ -29,14 +29,18 @@ const Icon = styled.i`
 	font-size: 16px;
 `;
 
-function HiddenEditors({ hidden, handleOpen }) {
+function HiddenEditors({ hidden, handleOpen, isMobile }) {
 	return (
 		<Container>
 			{hidden.map((title, idx) => (
 				<Chip
 					key={idx}
 					onClick={() => {
-						handleOpen(hidden.filter((item) => item !== title));
+						if (isMobile) {
+							handleOpen(
+								['HTML', 'CSS', 'JS'].filter((item) => item !== title)
+							);
+						} else handleOpen(hidden.filter((item) => item !== title));
 					}}
 				>
 					{title}

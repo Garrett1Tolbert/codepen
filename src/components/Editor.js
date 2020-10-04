@@ -28,7 +28,15 @@ const Icon = styled.i`
 	color: #212121;
 `;
 
-function Editor({ code, mode, title, hidden, handleChange, handleClose }) {
+function Editor({
+	code,
+	mode,
+	isMobile,
+	title,
+	hidden,
+	handleChange,
+	handleClose,
+}) {
 	const open = !hidden.includes(title);
 	return (
 		<Container open={open}>
@@ -37,8 +45,11 @@ function Editor({ code, mode, title, hidden, handleChange, handleClose }) {
 				<Icon
 					className="material-icons"
 					onClick={() => {
-						if (open) handleClose([...hidden, title]);
-						else handleClose(hidden.filter((item) => item !== title));
+						if (isMobile) {
+							if (title === 'HTML') handleClose(['HTML', 'JS']);
+							else if (title === 'CSS') handleClose(['HTML', 'CSS']);
+							else handleClose(['CSS', 'JS']);
+						} else handleClose([...hidden, title]);
 					}}
 				>
 					close_fullscreen
